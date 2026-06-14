@@ -1,0 +1,29 @@
+# ImmunoWatch Python dependencies.
+#
+# Versions below are the reference set the project was authored against. They are
+# known-good on CPython 3.10-3.12. On very new interpreters (e.g. 3.14) some of
+# these pins predate the available wheels; relax the pin (e.g. `torch>=2.3`) if
+# pip cannot find a matching wheel for your platform.
+
+torch==2.3.0
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+shap==0.45.0
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+sqlalchemy==2.0.30
+aiosqlite==0.20.0
+pydantic==2.7.1
+scipy==1.13.0
+matplotlib==3.9.0
+seaborn==0.13.2
+alembic==1.13.1
+python-dotenv==1.0.1
+jupyter==1.0.0
+ipykernel==6.29.4
+aiofiles==23.2.1
+onnx==1.16.0
+fastai==2.7.14
+keras==3.3.3
+reportlab==4.2.0

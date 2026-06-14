@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# ImmunoWatch generated artifacts
+immunowatch.db
+immunowatch.db-journal
+data/patients/*.csv
+models/**/*.pt
+models/**/*.pkl
+models/**/*.json
+models/**/*.onnx
+models/**/*.tflite
+reports/**/*.png
+reports/**/*.pdf
+
+# Keep the directory structure (these placeholders are tracked)
+!models/.gitkeep
+!reports/.gitkeep
+!data/patients/.gitkeep
+
+# Node / dashboard
+node_modules/
+dashboard/dist/
+dashboard/.vite/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "immunowatch"
+version = "1.0.0"
+description = "AI-powered continuous health monitoring for immunocompromised patients"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Arnav Pande" }]
+
+# Runtime dependencies are pinned in requirements.txt for reproducible installs.
+# This section lists them unpinned so `pip install -e .` resolves a compatible set.
+dependencies = [
+    "torch",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "shap",
+    "fastapi",
+    "uvicorn[standard]",
+    "sqlalchemy",
+    "aiosqlite",
+    "pydantic",
+    "scipy",
+    "matplotlib",
+    "seaborn",
+    "alembic",
+    "python-dotenv",
+    "aiofiles",
+    "onnx",
+]
+
+[project.optional-dependencies]
+# Notebook-only demonstrators (Keras/FastAI breadth, deployment export).
+notebook = ["jupyter", "ipykernel", "fastai", "keras", "reportlab"]
+
+[tool.setuptools]
+# This is a multi-package project run from the repo root; list the import
+# packages explicitly so editable installs put the root on sys.path.
+packages = ["data", "ml", "inference", "api", "api.routers"]
+py-modules = ["constants", "exceptions"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

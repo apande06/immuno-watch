@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python:
+    name: Python — syntax + torch-free smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Compiles every module — no dependencies needed, always fast.
+      - name: Compile-check all Python
+        run: python -m compileall -q constants.py exceptions.py data ml inference api alembic/env.py
+
+      # The torch-free slice: exercises the data layer + preprocessing for real.
+      # (Full torch/SHAP training is validated locally; see README.)
+      - name: Install torch-free dependencies
+        run: pip install numpy pandas scipy scikit-learn pydantic "sqlalchemy>=2" aiosqlite
+
+      - name: Run biosignal simulator (data layer)
+        run: python data/simulator.py
+
+      - name: Preprocessing smoke test
+        run: >
+          python -c "from ml.preprocessing import BiosignalPreprocessor, MODEL_FEATURES;
+          f, feats = BiosignalPreprocessor('chemo_nadir').fit_transform();
+          assert list(feats) == list(MODEL_FEATURES);
+          assert len(f) > 40000;
+          print('preprocessing OK:', len(f), 'rows,', len(feats), 'model channels')"
+
+  dashboard:
+    name: Dashboard — production build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Install dependencies
+        working-directory: dashboard
+        run: npm ci
+
+      - name: Build
+        working-directory: dashboard
+        run: npm run build
