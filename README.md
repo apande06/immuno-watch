@@ -206,8 +206,7 @@ infection event in real time as the alert escalates WATCH → WARNING → CRITIC
 Released under the [MIT License](LICENSE).
 
 ## Author
-**Arnav Pande** — [LinkedIn](https://linkedin.com/in/apande06) ·
-[GitHub](https://github.com/apande06)
+**Arnav Pande** — [GitHub](https://github.com/apande06)
 
-> ImmunoWatch is a research/portfolio prototype on **synthetic data**. It is not a
+> ImmunoWatch is a research prototype on **synthetic data**. It is not a
 > medical device and must not be used for clinical decision-making.
